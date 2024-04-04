@@ -1,5 +1,5 @@
 <!--MENU DISPOSITIVOS MOVILES-->
-<nav id="sidebarMenu" class="col-md-auto d-md-none  sidebar collapse-horizontal collapse text-center">
+<!--<nav id="sidebarMenu" class="col-md-auto d-md-none  sidebar collapse-horizontal collapse text-center">
     <ul class="nav d-flex flex-column justify-content-center h-100 pt-2">
         <li class="nav-item mb-3 text-sm-start text-md-center">
             <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" [routerLink]="['/exclusivo']" [routerLinkActive]='["active"]' [routerLinkActiveOptions]="{ exact: true }" aria-current="page">
@@ -38,36 +38,201 @@
             </a>
         </li>
     </ul>
-</nav>
-
-<!--MENU ESTATICO-->
-<nav id="sidebarMenustatic" class="col-md-auto d-none d-md-block sidebar collapse">
-    <ul class="nav d-flex flex-column justify-content-center h-100 pt-2">
-        <li class="nav-item mb-3 text-sm-start text-md-center">
-            <a class="nav-link" [routerLink]="['/exclusivo']" [routerLinkActive]='["active"]' [routerLinkActiveOptions]="{ exact: true }" aria-current="page">
-                <div data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
-                    <span><i class="fa-solid fa-gauge fa-2x"></i></span>
+</nav>-->
+<!--<nav id="sidebarMenustatic" class="col-md-auto d-none d-md-block sidebar text-dark" [ngClass]="{'expanded': menuExpandido, 'collapse': !menuExpandido}">
+    <ul class="nav d-flex flex-column justify-content-center h-100">
+        <li class="nav-item" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'" (click)="toggleMenu()">
+            <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" [routerLink]="['/exclusivo']" [routerLinkActive]='["active"]' [routerLinkActiveOptions]="{ exact: true }" aria-current="page">
+                <div data-bs-toggle="tooltip" data-bs-placement="left" title="Dashboard">
+                    <span><i class="fa-solid fa-gauge fa-2x"></i><span *ngIf="menuExpandido"> Dashboard</span></span>
                     <div class="float-end d-block d-sm-none"><h6>DASHBOARD</h6></div>
-                    <hr class="d-block d-sm-none" />
                 </div>
             </a>
         </li>
-        <li class="nav-item mb-3 text-sm-start text-md-center">
-            <a class="nav-link" [routerLink]="['/exclusivo/consulta']" [routerLinkActive]='["active"]' aria-current="page">
-                <div data-bs-toggle="tooltip" data-bs-placement="right" title="Consulta">
-                    <span><i class="fa-solid fa-file-invoice fa-2x"></i></span>
-                    <div class="float-end d-block d-sm-none"><h6>CONSULTA</h6></div>
-                    <hr class="d-block d-sm-none" />
+        <div *ngIf="menuExpandido">
+        <li (click)="toggleSubMenu(1)">Submenú 1</li>
+        <div *ngIf="submenu1Expandido">
+        <li>Opción 1</li>
+        <li>Opción 2</li>
+        </div>
+        <li (click)="toggleSubMenu(2)">Submenú 2</li>
+        <div *ngIf="submenu2Expandido">
+        <li>Opción 3</li>
+        <li>Opción 4</li>
+        </div>
+        </div>
+        <li class="nav-item" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'" (click)="toggleMenu()">
+            <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" [routerLink]="['/exclusivo']" [routerLinkActive]='["active"]' [routerLinkActiveOptions]="{ exact: true }" aria-current="page">
+                <div data-bs-toggle="tooltip" data-bs-placement="left" title="Dashboard">
+                    <span><i class="fa-solid fa-gauge fa-2x"></i><span *ngIf="menuExpandido"> Dashboard</span></span>
+                    <div class="float-end d-block d-sm-none"><h6>DASHBOARD</h6></div>
                 </div>
             </a>
         </li>
-        <li class="nav-item mb-3 text-sm-start text-md-center">
-            <div *ngIf="isDarkTheme" data-bs-toggle="tooltip" data-bs-placement="right" title="Tema claro">
-                <button class="btn" (click)="toggleTheme()"><i class="fa-solid fa-sun fa-2x " style="color: #fff;"></i></button>
+        <div *ngIf="menuExpandido">
+        <li (click)="toggleSubMenu(1)">Submenú 1</li>
+        <div *ngIf="submenu1Expandido">
+        <li>Opción 1</li>
+        <li>Opción 2</li>
+        </div>
+        <li (click)="toggleSubMenu(2)">Submenú 2</li>
+        <div *ngIf="submenu2Expandido">
+        <li>Opción 3</li>
+        <li>Opción 4</li>
+        </div>
+        </div>
+    </ul>
+</nav>-->
+<!--MENU ESTATICO-->
+<nav id="sidebarMenustatic" class="col-md-auto d-none d-md-block sidebar sidebar collapse" [ngClass]="{'expanded': menuExpandido, 'collapse': !menuExpandido}">
+    <ul class="nav d-flex flex-column justify-content-center h-100 ">
+        <!--OPCIONES DE MENU INICIAL-->
+        <li class="nav-item" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
+            <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" [routerLink]="['/exclusivo']" [routerLinkActive]='["active"]' [routerLinkActiveOptions]="{ exact: true }" aria-current="page">
+                <div data-bs-toggle="tooltip" data-bs-placement="left" title="Dashboard">
+                    <span><i class="fa-solid fa-gauge fa-2x"></i><span *ngIf="menuExpandido"> Dashboard</span></span>
+                    <div class="float-end d-block d-sm-none"><h6>DASHBOARD</h6></div>
+                </div>
+            </a>
+        </li>
+        <li class="nav-item" (click)="toggleSubMenu('contabilidad',1); openMenu()" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
+            <div class="nav-link" data-bs-toggle="tooltip" data-bs-placement="left" title="Contabilidad">
+                <span><i class="fa-solid fa-dollar-sign fa-2x"></i><span *ngIf="menuExpandido"> Contabilidad</span></span>
             </div>
-            <div *ngIf="!isDarkTheme" data-bs-toggle="tooltip" data-bs-placement="right" title="Tema oscuro">
-                <button class="btn" (click)="toggleTheme()"><i class="fa-solid fa-moon fa-2x" style="color: #333333;"></i></button>
+            <div class="submenu text-start" id="contabilidad">
+                <hr />
+                <ul class="d-flex flex-column justify-content-center">
+                    <!--OPCIONES SUBMENU-->
+                    <li (click)="toggleSubSubMenu('catalogoscont', $event)">
+                        <span  class="nav-link"><i class="fa-solid fa-chevron-down"></i> Catalogos</span>
+
+
+                        <div class="subsubmenu text-start" id="catalogoscont">
+                            <hr />
+                            <ul>
+                                <!--OPCIONES SUBSUBMENU-->
+                                <li class="nav-item" (click)="toggleSubMenu('contabilidad',1); closeMenu()" [routerLink]="['/exclusivo/consulta']" [routerLinkActive]='["active"]' aria-current="page">
+                                    <span class="nav-link"><i class="fa-solid fa-arrow-right"></i> Alta de cuentas</span>
+                                </li>
+                                <li class="nav-item">
+                                    <span class="nav-link"><i class="fa-solid fa-arrow-right"></i> Constancias de situaci&oacute;n fiscal</span>
+                                </li>
+                            </ul>
+                            <hr />
+                        </div>
+                    </li>
+                    <li class="nav-link" (click)="toggleSubSubMenu('procesoscont', $event)">
+                        <span><i class="fa-solid fa-chevron-down"></i> Procesos</span>
+                        <div class="subsubmenu" id="procesoscont">
+                            <hr />
+                            <ul>
+                                <li>Opci&oacute;n 1</li>
+                                <li>Opci&oacute;n 2</li>
+                            </ul>
+                            <hr />
+                        </div>
+                    </li>
+                    <li class="nav-link" (click)="toggleSubSubMenu('consultascont', $event)">
+                        <span><i class="fa-solid fa-chevron-down"></i> Consultas</span>
+                        <div class="subsubmenu" id="consultascont">
+                            <hr />
+                            <ul>
+                                <li>Opci&oacute;n 1</li>
+                                <li>Opci&oacute;n 2</li>
+                            </ul>
+                            <hr />
+                        </div>
+                    </li>
+                    <li class="nav-link" (click)="toggleSubSubMenu('reportescont', $event)">
+                        <span><i class="fa-solid fa-chevron-down"></i> Reportes</span>
+                        <div class="subsubmenu" id="reportescont">
+                            <hr />
+                            <ul>
+                                <li>Opci&oacute;n 1</li>
+                                <li>Opci&oacute;n 2</li>
+                            </ul>
+                            <hr />
+                        </div>
+                    </li>
+                </ul>
+                <hr />
             </div>
+        </li>
+
+        <li class="nav-item" (click)="toggleSubMenu('ventas',1); openMenu()" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
+            <div class="nav-link" data-bs-toggle="tooltip" data-bs-placement="left" title="Ventas">
+                <span><i class="fa-solid fa-file-invoice-dollar fa-2x"></i><span *ngIf="menuExpandido"> Ventas</span></span>
+            </div>
+            <div class="submenu text-start" id="ventas">
+                <hr />
+                <ul>
+                    <!--OPCIONES SUBMENU-->
+                    <li class="nav-link" (click)="toggleSubSubMenu('catalogosvent', $event)">
+                        <span><i class="fa-solid fa-chevron-down"></i> Catalogos</span>
+                        <div class="subsubmenu text-start" id="catalogosvent">
+                            <hr />
+                            <ul>
+                                <li>Opci&oacute;n 1</li>
+                                <li>Opci&oacute;n 2</li>
+                            </ul>
+                            <hr />
+                        </div>
+                    </li>
+                    <li class="nav-link" (click)="toggleSubSubMenu('procesosvent', $event)">
+                        <span><i class="fa-solid fa-chevron-down"></i> Procesos</span>
+                        <div class="subsubmenu" id="procesosvent">
+                            <hr />
+                            <ul>
+                                <li>Opci&oacute;n 1</li>
+                                <li>Opci&oacute;n 2</li>
+                            </ul>
+                            <hr />
+                        </div>
+                    </li>
+                    <li class="nav-link" (click)="toggleSubSubMenu('consultasvent', $event)">
+                        <span><i class="fa-solid fa-chevron-down"></i> Consultas</span>
+                        <div class="subsubmenu" id="consultasvent">
+                            <hr />
+                            <ul>
+                                <li>Opci&oacute;n 1</li>
+                                <li>Opci&oacute;n 2</li>
+                            </ul>
+                            <hr />
+                        </div>
+                    </li>
+                    <li class="nav-link" (click)="toggleSubSubMenu('reportesvent', $event)">
+                        <span><i class="fa-solid fa-chevron-down"></i> Reportes</span>
+                        <div class="subsubmenu" id="reportesvent">
+                            <hr />
+                            <ul>
+                                <li>Opci&oacute;n 1</li>
+                                <li>Opci&oacute;n 2</li>
+                            </ul>
+                            <hr />
+                        </div>
+                    </li>
+                </ul>
+                <hr />
+            </div>
+        </li>
+
+        <li class="nav-item text-sm-start" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
+            <a *ngIf="isDarkTheme" class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" (click)="toggleTheme()">
+                <div data-bs-toggle="tooltip" data-bs-placement="right">
+                    <span> <i class="fa-solid fa-sun fa-2x" style="color: lightgray;"></i><span *ngIf="menuExpandido"> Tema</span></span>
+                </div>
+            </a>
+        </li>
+        <li class="nav-item text-sm-start" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
+            <a *ngIf="!isDarkTheme" class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" (click)="toggleTheme()">
+                <div data-bs-toggle="tooltip" data-bs-placement="right">
+                    <span> <i class="fa-solid fa-moon fa-2x" style="color: #333333;"></i><span *ngIf="menuExpandido"> Tema</span></span>
+                </div>
+            </a>
         </li>
     </ul>
 </nav>
+<!--PARA MOVILES-->
+
+
+

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 declare var bootstrap: any;
 
 @Component({
@@ -7,6 +7,8 @@ declare var bootstrap: any;
 })
 export class LatMenuComponent implements OnInit {
     isDarkTheme: boolean = false;
+    menuExpandido: boolean = false;
+    ultMenu: string = '';
     constructor() {
     }
 
@@ -16,6 +18,23 @@ export class LatMenuComponent implements OnInit {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
     }
+
+    @HostListener('document:click', ['$event'])
+    onClick(event: MouseEvent) {
+        if (!this.menuExpandido) return;
+
+        const sidebarMenu = document.getElementById('sidebarMenustatic');
+        if (!sidebarMenu) return;
+        // Verificar si el clic ocurrió fuera del menú
+        if (!sidebarMenu.contains(event.target as Node)) {
+            const submenus = document.querySelectorAll('.submenu.active');
+            submenus.forEach((submenu) => {
+                    submenu.classList.remove('active');
+            });
+            this.closeMenu();
+        }
+    }
+
     toggleTheme() {
         this.isDarkTheme = !this.isDarkTheme;
         if (this.isDarkTheme) {
@@ -32,4 +51,52 @@ export class LatMenuComponent implements OnInit {
             elemento.blur();
         });
     }
+    toggleMenu() {
+
+        this.menuExpandido = !this.menuExpandido;
+    }
+    toggleSubMenu(submenuId: string, idCierre: number) {
+        this.ultMenu = submenuId;
+        //Selecciona los menus activos
+        const submenus = document.querySelectorAll('.submenu.active');
+        submenus.forEach((submenu) => {
+            if (submenu.id !== submenuId) {
+                submenu.classList.remove('active');
+            }
+        });
+        if (idCierre == 1) {
+            const submenu = document.getElementById(submenuId);
+            submenu.classList.toggle('active');
+        }
+
+
+    }
+
+
+
+    toggleSubSubMenu(subsubmenuId: string, event: Event) {
+        event.stopPropagation();
+        const subsubmenus = document.querySelectorAll('.subsubmenu.active');
+        subsubmenus.forEach((subsubmenu) => {
+            if (subsubmenu.id !== subsubmenuId) {
+                subsubmenu.classList.remove('active');
+            }
+        });
+        const subsubmenu = document.getElementById(subsubmenuId);
+        subsubmenu.classList.toggle('active');
+    }
+
+    togglePageMenu(subsubmenuId: string, event: Event) {
+        event.stopPropagation();
+        const subsubmenu = document.getElementById(subsubmenuId);
+        subsubmenu.classList.toggle('active');
+    }
+    openMenu() {
+        this.menuExpandido = true;
+    }
+    closeMenu() {
+        this.menuExpandido = false;
+    }
+
+
 }

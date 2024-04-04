@@ -9,6 +9,9 @@ import { StoreUser } from 'src/app/stores/StoreUser';
 export class ExMenuComponent {
     isExpanded = false;
     visibilidadLatMenu
+    menuLateralAbierto: boolean = false;
+
+
 
     constructor(public user: StoreUser, private rtr: Router) {
         if (user.idPersonal == undefined) {
@@ -41,5 +44,8 @@ export class ExMenuComponent {
         elementos.forEach((elemento: HTMLElement) => {
             elemento.blur();
         });
+    }
+    buttonClick() {
+        this.menuLateralAbierto = !this.menuLateralAbierto;
     }
 }
