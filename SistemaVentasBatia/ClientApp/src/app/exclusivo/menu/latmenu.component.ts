@@ -8,6 +8,7 @@ declare var bootstrap: any;
 export class LatMenuComponent implements OnInit {
     isDarkTheme: boolean = false;
     menuExpandido: boolean = false;
+    menuExpandidotext: boolean = false;
     ultMenu: string = '';
     constructor() {
     }
@@ -21,6 +22,7 @@ export class LatMenuComponent implements OnInit {
 
     @HostListener('document:click', ['$event'])
     onClick(event: MouseEvent) {
+
         if (!this.menuExpandido) return;
 
         const sidebarMenu = document.getElementById('sidebarMenustatic');
@@ -29,7 +31,7 @@ export class LatMenuComponent implements OnInit {
         if (!sidebarMenu.contains(event.target as Node)) {
             const submenus = document.querySelectorAll('.submenu.active');
             submenus.forEach((submenu) => {
-                    submenu.classList.remove('active');
+                submenu.classList.remove('active');
             });
             this.closeMenu();
         }
@@ -68,11 +70,7 @@ export class LatMenuComponent implements OnInit {
             const submenu = document.getElementById(submenuId);
             submenu.classList.toggle('active');
         }
-
-
     }
-
-
 
     toggleSubSubMenu(subsubmenuId: string, event: Event) {
         event.stopPropagation();
@@ -92,11 +90,30 @@ export class LatMenuComponent implements OnInit {
         subsubmenu.classList.toggle('active');
     }
     openMenu() {
-        this.menuExpandido = true;
+        setTimeout(() => {
+            this.menuExpandido = true;
+            setTimeout(() => {
+                this.menuExpandidotext = true;
+            }, 150);
+        }, 50);
+
     }
+
     closeMenu() {
-        this.menuExpandido = false;
+        setTimeout(() => {
+            this.menuExpandido = false;
+
+                this.menuExpandidotext = false;
+        }, 50);
     }
-
-
+    closeMenuMouse() {
+        setTimeout(() => {
+            const submenus = document.querySelectorAll('.submenu.active');
+            submenus.forEach((submenu) => {
+                submenu.classList.remove('active');
+            });
+            this.menuExpandido = false;
+            this.menuExpandidotext = false;
+        }, 50);
+    }
 }

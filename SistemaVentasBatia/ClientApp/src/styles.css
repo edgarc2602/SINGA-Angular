@@ -131,18 +131,24 @@ html {
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
     width: 60px; /* Ancho cuando está contraído */
     overflow-y: auto;
-    overflow-x: auto;
-    transition: width 0.3s; /* Agrega una transición suave al cambio de ancho */
+    overflow-x: hidden;
+    transition: width 0.5s, height 0.5s, box-shadow 0.5s; /* Agrega una transición suave a todos los estilos que cambian */
 }
 
     /* Estilo para el menú lateral cuando está expandido */
     #sidebarMenustatic.expanded {
         overflow-y: auto;
-        overflow-x: auto;
+        overflow-x: hidden;
         height: 100vh; /* Altura máxima cuando está expandido */
         width: 250px; /* Ancho cuando está expandido */
-        transition: width 0.3s;
+        transition: width 0.5s, height 0.5s, box-shadow 0.5s; /* Agrega una transición suave a todos los estilos que cambian */
     }
+
+    #sidebarMenustatic.collapse {
+        transition: width 0.1s, height 0.1s, box-shadow 0.1s;
+        width: 60px; /* Ancho cuando está contraído */
+    }
+
 
 /* Navbar
 -------------------------------------------------- */
@@ -923,25 +929,24 @@ input:focus::-webkit-input-placeholder {
 
 /* Estilos para los elementos del submenú */
 .submenu {
-    display: none;
-    transition: all 0.3s ease; /* Transición suave de 0.3 segundos */
-    overflow: hidden; /* Oculta el contenido que se desborda */
+    transition: all 0.3s ease;
+    overflow: hidden;
     max-height: 0; /* Inicialmente oculto */
 }
 
-
-/*.submenu:hover {
-        background-color: blue;*/ /* Cambia el color de fondo */
-/*color: #fff;*/ /* Cambia el color del texto */
-/*}*/
+    .submenu.active {
+        transition: all 0.3s ease;
+    }
 
 .subsubmenu {
-    display: none;
-    transition: all 0.3s ease; /* Transición suave de 0.3 segundos */
-    transition: width 0.3s;
-    overflow: hidden; /* Oculta el contenido que se desborda */
+    transition: all 0.3s ease;
+    overflow: hidden;
     max-height: 0; /* Inicialmente oculto */
 }
+
+    .subsubmenu.active {
+        transition: all 0.3s ease;
+    }
 
 .subsubmenuhover:hover {
     box-shadow: 5px;
@@ -975,7 +980,11 @@ ul {
 
 .nav-link {
     cursor: pointer;
+    
 }/**/
+    .nav-link:hover {
+        color: #2470dc;
+    }
 
 
 
