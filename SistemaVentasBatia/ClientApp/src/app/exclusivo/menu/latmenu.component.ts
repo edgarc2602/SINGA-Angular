@@ -1,4 +1,8 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, Inject } from '@angular/core';
+import { MenuArea } from '../../models/menuarea';
+import { HttpClient } from '@angular/common/http';
+import { PlotAbandsBottomLineOptions } from 'highcharts';
+
 declare var bootstrap: any;
 
 @Component({
@@ -8,9 +12,18 @@ declare var bootstrap: any;
 export class LatMenuComponent implements OnInit {
     isDarkTheme: boolean = false;
     menuExpandido: boolean = false;
+    menuExpandidoSubSubMenu: boolean = false;
+    menuExpandidoTextSubSubMenu: boolean = false;
     menuExpandidotext: boolean = false;
     ultMenu: string = '';
-    constructor() {
+    menu: MenuArea = { idArea: 0, areaNombre: '', areaDescripcion: '', areaPosicion: 0, areaEstatus: false, areaIcono: '', menuAreaProceso:[] };
+    constructor(@Inject('BASE_URL') private url: string, private http: HttpClient) {
+        http.get<MenuArea>(`${url}api/Menu/ObtenerMenu`).subscribe(response => {
+            this.menu = response;
+
+        }, err => {
+            
+        });
     }
 
     ngOnInit(): void {
@@ -22,9 +35,7 @@ export class LatMenuComponent implements OnInit {
 
     @HostListener('document:click', ['$event'])
     onClick(event: MouseEvent) {
-
         if (!this.menuExpandido) return;
-
         const sidebarMenu = document.getElementById('sidebarMenustatic');
         if (!sidebarMenu) return;
         // Verificar si el clic ocurrió fuera del menú
@@ -53,10 +64,11 @@ export class LatMenuComponent implements OnInit {
             elemento.blur();
         });
     }
-    toggleMenu() {
 
+    toggleMenu() {
         this.menuExpandido = !this.menuExpandido;
     }
+
     toggleSubMenu(submenuId: string, idCierre: number) {
         this.ultMenu = submenuId;
         //Selecciona los menus activos
@@ -70,18 +82,32 @@ export class LatMenuComponent implements OnInit {
             const submenu = document.getElementById(submenuId);
             submenu.classList.toggle('active');
         }
+        const subsubmenus = document.querySelectorAll('.subsubmenu.active');
+        subsubmenus.forEach((subsubmenus) => {
+            subsubmenus.classList.remove('active');
+        });
     }
 
     toggleSubSubMenu(subsubmenuId: string, event: Event) {
+        
         event.stopPropagation();
         const subsubmenus = document.querySelectorAll('.subsubmenu.active');
         subsubmenus.forEach((subsubmenu) => {
             if (subsubmenu.id !== subsubmenuId) {
                 subsubmenu.classList.remove('active');
+                this.menuExpandidoSubSubMenu = false;
+                this.menuExpandidoTextSubSubMenu = false;
+
+
             }
         });
         const subsubmenu = document.getElementById(subsubmenuId);
         subsubmenu.classList.toggle('active');
+        this.menuExpandidoSubSubMenu = !this.menuExpandidoSubSubMenu;
+        setTimeout(() => {
+            this.menuExpandidoTextSubSubMenu = !this.menuExpandidoTextSubSubMenu;
+        }, 250);
+
     }
 
     togglePageMenu(subsubmenuId: string, event: Event) {
@@ -89,31 +115,38 @@ export class LatMenuComponent implements OnInit {
         const subsubmenu = document.getElementById(subsubmenuId);
         subsubmenu.classList.toggle('active');
     }
+
     openMenu() {
-        setTimeout(() => {
+        this.menuExpandidoSubSubMenu = false;
+        this.menuExpandidoTextSubSubMenu = false;
+
             this.menuExpandido = true;
             setTimeout(() => {
                 this.menuExpandidotext = true;
-            }, 150);
-        }, 50);
-
+            }, 110);
     }
 
     closeMenu() {
-        setTimeout(() => {
-            this.menuExpandido = false;
-
-                this.menuExpandidotext = false;
-        }, 50);
+        this.menuExpandidoSubSubMenu = false;
+        this.menuExpandidoTextSubSubMenu = false;
+        this.menuExpandido = false;
+        this.menuExpandidotext = false;
     }
+
     closeMenuMouse() {
         setTimeout(() => {
             const submenus = document.querySelectorAll('.submenu.active');
             submenus.forEach((submenu) => {
                 submenu.classList.remove('active');
             });
+            const subsubmenus = document.querySelectorAll('.subsubmenu.active');
+            subsubmenus.forEach((subsubmenus) => {
+                subsubmenus.classList.remove('active');
+            });
+            this.menuExpandidoSubSubMenu = false;
+            this.menuExpandidoTextSubSubMenu = false;
             this.menuExpandido = false;
             this.menuExpandidotext = false;
-        }, 50);
+        }, 120);
     }
 }

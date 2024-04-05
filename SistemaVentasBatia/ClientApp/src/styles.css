@@ -79,7 +79,7 @@ html {
     bottom: 0;
     left: 0;
     z-index: 101;
-    padding: 100px 0 0;
+    padding: 70px 0 0;
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
 }
 
@@ -103,7 +103,6 @@ html {
 }
 
     .sidebar .nav-link .feather {
-        margin-right: 4px;
         color: #727272;
     }
 
@@ -121,7 +120,6 @@ html {
     text-transform: uppercase;
 }
 
-/* Estilo para el menú lateral cuando está contraído */
 #sidebarMenustatic {
     position: absolute;
     top: 0;
@@ -129,24 +127,30 @@ html {
     left: 0;
     z-index: 101;
     box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
-    width: 60px; /* Ancho cuando está contraído */
+    width: 70px; 
     overflow-y: auto;
     overflow-x: hidden;
-    transition: width 0.5s, height 0.5s, box-shadow 0.5s; /* Agrega una transición suave a todos los estilos que cambian */
+    transition: width 0.5s, height 0.5s, box-shadow 0.5s;
 }
 
-    /* Estilo para el menú lateral cuando está expandido */
     #sidebarMenustatic.expanded {
         overflow-y: auto;
         overflow-x: hidden;
-        height: 100vh; /* Altura máxima cuando está expandido */
-        width: 250px; /* Ancho cuando está expandido */
-        transition: width 0.5s, height 0.5s, box-shadow 0.5s; /* Agrega una transición suave a todos los estilos que cambian */
+        height: 100vh;
+        width: 200px;
+        transition: width 0.1s, height 0.5s, box-shadow 0.5s;
+    }
+    #sidebarMenustatic.expandedSubSubMenu {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100vh;
+        width: 300px;
+        transition: width 0.1s, height 0.1s, box-shadow 0.1s;
     }
 
     #sidebarMenustatic.collapse {
         transition: width 0.1s, height 0.1s, box-shadow 0.1s;
-        width: 60px; /* Ancho cuando está contraído */
+        width: 70px;
     }
 
 
@@ -665,6 +669,10 @@ input:focus::-webkit-input-placeholder {
             width: 250px;
             transition: width 0.3s;
         }
+        .dark-theme #sidebarMenustatic.collapse {
+            transition: width 0.1s, height 0.1s, box-shadow 0.1s;
+            width: 60px;
+        }
 
     .dark-theme #gla {
         background-color: #383434;
@@ -883,6 +891,10 @@ input:focus::-webkit-input-placeholder {
         background-color: #282424;
     }
 
+        .dark-theme .nav-link:hover {
+            color: #2470dc;
+        }
+
 .loading-bar {
     position: relative;
     display: inline-block;
@@ -920,52 +932,46 @@ input:focus::-webkit-input-placeholder {
         width: 100%;
     }
 }
-/* Estilos para el menú principal */
 
 .nav-link {
     color: inherit;
     text-decoration: none;
 }
 
-/* Estilos para los elementos del submenú */
 .submenu {
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     overflow: hidden;
-    max-height: 0; /* Inicialmente oculto */
+    max-height: 0;
 }
 
     .submenu.active {
-        transition: all 0.3s ease;
+        transition: all 0.1s ease;
     }
 
 .subsubmenu {
-    transition: all 0.3s ease;
+    transition: all 0.1s ease;
     overflow: hidden;
-    max-height: 0; /* Inicialmente oculto */
+    max-height: 0;
 }
 
     .subsubmenu.active {
-        transition: all 0.3s ease;
+        transition: all 0.1s ease;
     }
 
 .subsubmenuhover:hover {
     box-shadow: 5px;
-    /*background-color: #2470dc;  Cambia el color de fondo */
-    color: #2470dc; /* Cambia el color del texto */
+    color: #2470dc;
 }
 
-/* Estilos para elementos activos */
 .active {
     display: block !important;
-    max-height: 1000px; /* Altura máxima para mostrar el contenido */
+    max-height: 1000px;
 }
 
-/* Estilos para elementos flotantes */
 .float-end {
     float: right;
 }
 
-/* Estilos para elementos ocultos en dispositivos pequeños */
 @media (max-width: 576px) {
     .d-block.d-sm-none {
         display: none !important;
@@ -976,15 +982,32 @@ input:focus::-webkit-input-placeholder {
 .subsubmenu,
 ul {
     list-style: none;
+    padding: 0; /* Elimina el relleno */
+    margin: 0; /* Elimina el margen */
 }
 
 .nav-link {
     cursor: pointer;
-    
-}/**/
+    user-select: none; /* Evita la selección de texto */
+    -moz-user-select: none; /* Firefox */
+    -webkit-user-select: none; /* Chrome, Safari, Opera */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+}
     .nav-link:hover {
         color: #2470dc;
+        box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .09);
     }
+.nav-item:hover {
+    background-color: #e2fffe
+}
 
+.fade-in-out {
+    transition: opacity 0.5s ease;
+    opacity: 0;
+    display: none;
+}
 
-
+    .fade-in-out.show {
+        opacity: 1;
+        display: inline; /* O el valor de display deseado */
+    }
