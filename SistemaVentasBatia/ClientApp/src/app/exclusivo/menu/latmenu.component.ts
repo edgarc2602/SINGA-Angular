@@ -16,6 +16,11 @@ export class LatMenuComponent implements OnInit {
     menuExpandidoTextSubSubMenu: boolean = false;
     menuExpandidotext: boolean = false;
     ultMenu: string = '';
+    menuExpandidophone: boolean = true;
+    menuExpandidoSubSubMenuphone: boolean = false;
+    menuExpandidoTextSubSubMenuphone: boolean = true;
+    menuExpandidotextphone: boolean = true;
+    ultMenuphone: string = '';
     menu: MenuArea = { idArea: 0, areaNombre: '', areaDescripcion: '', areaPosicion: 0, areaEstatus: false, areaIcono: '', menuAreaProceso:[] };
     constructor(@Inject('BASE_URL') private url: string, private http: HttpClient) {
         http.get<MenuArea>(`${url}api/Menu/ObtenerMenu`).subscribe(response => {
@@ -96,7 +101,9 @@ export class LatMenuComponent implements OnInit {
             if (subsubmenu.id !== subsubmenuId) {
                 subsubmenu.classList.remove('active');
                 this.menuExpandidoSubSubMenu = false;
+                this.menuExpandidoSubSubMenuphone = false;
                 this.menuExpandidoTextSubSubMenu = false;
+                this.menuExpandidoTextSubSubMenuphone = false;
 
 
             }
@@ -104,8 +111,10 @@ export class LatMenuComponent implements OnInit {
         const subsubmenu = document.getElementById(subsubmenuId);
         subsubmenu.classList.toggle('active');
         this.menuExpandidoSubSubMenu = !this.menuExpandidoSubSubMenu;
+        this.menuExpandidoSubSubMenuphone = !this.menuExpandidoSubSubMenuphone;
         setTimeout(() => {
             this.menuExpandidoTextSubSubMenu = !this.menuExpandidoTextSubSubMenu;
+            this.menuExpandidoTextSubSubMenuphone = !this.menuExpandidoTextSubSubMenuphone;
         }, 250);
 
     }
@@ -118,19 +127,27 @@ export class LatMenuComponent implements OnInit {
 
     openMenu() {
         this.menuExpandidoSubSubMenu = false;
+        this.menuExpandidoSubSubMenuphone = false;
         this.menuExpandidoTextSubSubMenu = false;
+        this.menuExpandidoTextSubSubMenuphone = false;
 
             this.menuExpandido = true;
+        this.menuExpandidophone = true;
             setTimeout(() => {
                 this.menuExpandidotext = true;
+                this.menuExpandidotextphone = true;
             }, 110);
     }
 
     closeMenu() {
         this.menuExpandidoSubSubMenu = false;
+        this.menuExpandidoSubSubMenuphone = false;
         this.menuExpandidoTextSubSubMenu = false;
+        this.menuExpandidoTextSubSubMenuphone = false;
         this.menuExpandido = false;
+        this.menuExpandidophone = false;
         this.menuExpandidotext = false;
+        this.menuExpandidotextphone = false;
     }
 
     closeMenuMouse() {
@@ -144,9 +161,13 @@ export class LatMenuComponent implements OnInit {
                 subsubmenus.classList.remove('active');
             });
             this.menuExpandidoSubSubMenu = false;
+            this.menuExpandidoSubSubMenuphone = false;
             this.menuExpandidoTextSubSubMenu = false;
+            this.menuExpandidoTextSubSubMenuphone = false;
             this.menuExpandido = false;
+            this.menuExpandidophone = false;
             this.menuExpandidotext = false;
+            this.menuExpandidotextphone = false;
         }, 120);
     }
 }

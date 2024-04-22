@@ -11,7 +11,7 @@
         <li *ngFor="let menuArea of menu" class="nav-item" (click)="toggleSubMenu( menuArea.areaDescripcion,1); openMenu()"
             [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
             <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                <span><i class="fa-solid {{ menuArea.areaIcono }} fa-1x"></i><span *ngIf="menuExpandidotext"> {{ menuArea.areaDescripcion}}</span></span>
+                <span><i class="fa-solid {{ menuArea.areaIcono }} fa-1x"></i><span *ngIf="menuExpandidotext"> {{ menuArea.areaDescripcion }}</span></span>
             </a>
             <div class="submenu text-start ps-2" id="{{ menuArea.areaDescripcion}}">
                 <hr />
@@ -19,7 +19,7 @@
 
                     <!--SUBMENU-->
                     <li *ngFor="let menuAreaProceso of menuArea.menuAreaProceso" (click)="toggleSubSubMenu( menuArea.areaDescripcion + menuAreaProceso.proceso, $event)">
-                        <span class="nav-link"><i class="fa-solid fa-chevron-down"></i> {{ menuAreaProceso.proceso}}</span>
+                        <span class="nav-link"><i class="fa-solid fa-chevron-down"></i> {{ menuAreaProceso.proceso }}</span>
                         <div class="subsubmenu ps-3" [id]="menuArea.areaDescripcion + menuAreaProceso.proceso">
                             <ul>
 
@@ -56,21 +56,20 @@
         </li>
     </ul>
 </nav>
-<!--PARA MOVILES-->
 
-<nav id="sidebarMenustatic" class=" col-md-auto d-md-none sidebar overflow-container show"
+<!--PARA MOVILES-->
+<nav id="sidebarMenu" class=" col-md-auto d-md-none sidebar collapse"
      [ngClass]="{
-     'collapse text-md-center': !menuExpandido,
-     'expanded text-md-start': menuExpandido && !menuExpandidoSubSubMenu,
-     'expandedSubSubMenu text-md-start': menuExpandido && menuExpandidoSubSubMenu}"
+     'expanded text-md-start': menuExpandidophone && !menuExpandidoSubSubMenuphone,
+     'expandedSubSubMenu text-md-start': menuExpandido && menuExpandidoSubSubMenuphone}"
      (mouseenter)="openMenu()"
      (mouseleave)="closeMenuMouse()">
-    <ul class="nav row" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
+    <ul class="nav row" [ngClass]="menuExpandidophone ? 'text-md-start' : 'text-md-center'">
         <!--MENU-->
         <li *ngFor="let menuArea of menu" class="nav-item" (click)="toggleSubMenu( menuArea.areaDescripcion,1); openMenu()"
-            [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
+            [ngClass]="menuExpandidophone ? 'text-md-start' : 'text-md-center'">
             <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                <span><i class="fa-solid {{ menuArea.areaIcono }} fa-2x"></i><span class="fade-in-out h5" *ngIf="menuExpandidotext"> {{ menuArea.areaDescripcion}}</span></span>
+                <span><i class="fa-solid {{ menuArea.areaIcono }} fa-2x"></i><span class="h5"> {{ menuArea.areaDescripcion }}</span></span>
             </a>
             <div class="submenu text-start ps-4" id="{{ menuArea.areaDescripcion}}">
                 <hr />
@@ -78,7 +77,7 @@
 
                     <!--SUBMENU-->
                     <li *ngFor="let menuAreaProceso of menuArea.menuAreaProceso" (click)="toggleSubSubMenu( menuArea.areaDescripcion + menuAreaProceso.proceso, $event)">
-                        <span class="nav-link"><i class="fa-solid fa-chevron-down"></i> {{ menuAreaProceso.proceso}}</span>
+                        <span class="nav-link"><i class="fa-solid fa-chevron-down"></i> {{ menuAreaProceso.proceso }}</span>
                         <div class="subsubmenu ps-4" [id]="menuArea.areaDescripcion + menuAreaProceso.proceso">
                             <ul>
 
@@ -99,10 +98,10 @@
             </div>
             <hr />
         </li>
-        <li class="nav-item" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'" (click)="toggleTheme()">
+        <li class="nav-item" [ngClass]="menuExpandidophone ? 'text-md-start' : 'text-md-center'" (click)="toggleTheme()">
             <a class="nav-link">
-                <span *ngIf="isDarkTheme"> <i class="fa-solid fa-sun fa-1x" style="color: lightgray;"></i><span *ngIf="menuExpandidotext"> Tema</span></span>
-                <span *ngIf="!isDarkTheme"> <i class="fa-solid fa-moon fa-1x" style="color: #333333;"></i><span *ngIf="menuExpandidotext"> Tema</span></span>
+                <span *ngIf="isDarkTheme"> <i class="fa-solid fa-sun fa-1x" style="color: lightgray;"></i><span *ngIf="menuExpandidotextphone"> Tema</span></span>
+                <span *ngIf="!isDarkTheme"> <i class="fa-solid fa-moon fa-1x" style="color: #333333;"></i><span *ngIf="menuExpandidotextphone"> Tema</span></span>
             </a>
         </li>
     </ul>
