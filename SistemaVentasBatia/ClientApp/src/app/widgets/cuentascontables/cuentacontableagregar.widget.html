@@ -1,0 +1,131 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="modal fade" id="modalcuentascontables" data-bs-backdrop="static">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 *ngIf="model.id == 0" class="modal-title">Agregar Cuenta Contable</h4>
+                    <h4 *ngIf="model.id > 0" class="modal-title">Modificar Cuenta Contable</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Seleccione si es una Cuenta Padre:</h5>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="radCuentaPadre" name="opcionCuenta" [(ngModel)]="model.dimension" [disabled]="chkctapadre" value="dimension" (change)="HabilitaTexbox()">
+                                <label class="form-check-label" for="radCuentaPadre">Cuenta Padre</label>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-2 col-3 mb-3" style="text-align:right">
+                            <label for="txtnoCtaPadre">Cuenta Padre:</label>
+                        </div>
+                        <div class="col-md-4 col-9 mb-3">
+                            <select class="form-select" [(ngModel)]="model.noCtaPadre" id="ddlnoCtaPadre" [disabled]="txtctapadre" (change)="actualizarCampo2()">
+                                <option value="0">Selecciona una opción...</option>
+                                <option *ngFor="let d of Ctapadre" [ngValue]="d.id">{{ d.id }}-{{ d.descripcion }}</option>
+                            </select>
+                            <span *ngIf="ferr('noCtaPadre')" class="text-danger">{{ terr('noCtaPadre') }}</span>
+                        </div>
+                        <div class="col-md-2 col-3 mb-3" style="text-align:right">
+                            <label for="txtCodigoAgrupador">Codigo Agrupador:</label>
+                        </div>
+                        <div class="col-md-4 col-9 mb-3">
+                            <input class="form-control" [(ngModel)]="model.codigoAgrupador" id="txtCodigoAgrupador">
+                            <span *ngIf="ferr('codigoAgrupador')" class="text-danger">{{ terr('codigoAgrupador') }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-3 mb-3" style="text-align:right">
+                            <label for="txtNoCuenta">Numero Cuenta:</label>
+                        </div>
+                        <div class="col-md-2 mb-3 col-9">
+                            <input class="form-control" [(ngModel)]="model.noCuenta" id="txtNoCuenta">
+                            <span *ngIf="ferr('noCuenta')" class="text-danger">{{ terr('noCuenta') }}</span>
+                            <span *ngIf="ferr('noCuentaexistente')" class="text-danger">{{ terr('noCuentaexistente') }}</span>
+                        </div>
+                        <div class="col-md-2 col-3 mb-3" style="text-align:right">
+                            <label for="txtDescripcion">Descripción:</label>
+                        </div>
+                        <div class="col-md-6 mb-3 col-9">
+                            <input class="form-control" [(ngModel)]="model.descripcionC" id="txtDescripcion">
+                            <span *ngIf="ferr('descripcionC')" class="text-danger">{{ terr('descripcionC') }}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-3 mb-3" style="text-align:right">
+                            <label for="ddlTipoCuenta">Tipo Cuenta:</label>
+                        </div>
+                        <div class="col-md-4 col-9 mb-3">
+                            <select class="form-select" [(ngModel)]="model.idTipoCuenta" id="ddlTipoCuenta">
+                                <option value="0">Selecciona una opción...</option>
+                                <option *ngFor="let d of TipCta" [ngValue]="d.id">{{ d.descripcion }}</option>
+                            </select>
+                            <span *ngIf="ferr('idTipoCuenta')" class="text-danger">{{ terr('idTipoCuenta') }}</span>
+                        </div>
+                        <div class="col-md-2 col-3 mb-3" style="text-align:right">
+                            <label for="ddlNaturaleza">Naturaleza:</label>
+                        </div>
+                        <div class="col-md-4 col-9 mb-3">
+                            <select class="form-select" [(ngModel)]="model.idNaturaleza" id="ddlNaturaleza">
+                                <option value="0">Selecciona una opción...</option>
+                                <option *ngFor="let s of Natu" [ngValue]="s.id">{{ s.descripcion }}</option>
+                            </select>
+                            <span *ngIf="ferr('idNaturaleza')" class="text-danger">{{ terr('idNaturaleza') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 col-2" style="text-align:right">
+                            <label for="CheckEstatus">Estatus:</label>
+                        </div>
+                        <div class="col-md-4 col-6 mb-3">
+                            <mat-slide-toggle [(ngModel)]="model.estatus" [disabled]="chkestatus" (change)="Habilitadim()">{{ model.estatus  ? 'Bloqueado' : 'Desbloqueado' }}</mat-slide-toggle>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>Dimension</h5>
+                        </div>
+                        <div class="col-md-4 col-4">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="radCliPro" [disabled]="chkdimension" name="opcionCliPro" [(ngModel)]="model.cliente_proveedor" value="Cliente/Proveedor">
+                                <label class="form-check-label" for="radCliPro">Cliente/Proveedor</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-5">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="radLineaN" [disabled]="chkdimension" name="opcionLineaN" [(ngModel)]="model.lineanegocio" value="SubLineaN">
+                                <label class="form-check-label" for="radLineaN">Linea de Negocio</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="radTipo" [disabled]="chkdimension" name="opcionTipo" [(ngModel)]="model.tipo" value="SubTipo">
+                                <label class="form-check-label" for="radTipo">Tipo</label>
+                            </div>
+                        </div>
+                    </div>                   
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" id="btnGuardarMaterial" (click)="guarda()" class="btn btn-outline-success"><i class="fa-solid fa-save"></i>{{ model.id == 0  ? 'Guardar' : 'Actualizar' }}</button>
+                    <button type="button" class="btn btn-outline-secondary" (click)="close()" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+<toast-widget></toast-widget>
+
+

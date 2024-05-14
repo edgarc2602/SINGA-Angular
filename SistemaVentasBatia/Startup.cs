@@ -64,12 +64,14 @@ namespace SINGA
             services.AddScoped<IUsuarioService, UsuarioService>();
             services.AddScoped<IConsultaService, ConsultaService>();
             services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<IContabilidadCatalogosService, ContabilidadCatalogosService>();
 
             // Repositories
             services.AddScoped<ICatalogosRepository, CatalogosRepository>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IConsultaRepository, ConsultaRepository>();
             services.AddScoped<IMenuRepository, MenuRepository>();
+            services.AddScoped<IContabilidadCatalogosRepository, ContabilidadCatalogosRepository>();
 
 
         }

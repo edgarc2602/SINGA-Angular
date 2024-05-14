@@ -91,8 +91,8 @@ namespace SINGA.Repositories
             Ar_orden AreaOrden,
             IdArea IdArea,
             IdPadre IdPadre,
-            IdProceso IdProceso
-            ,Ar_Path_New AreaPathNew
+            IdProceso IdProceso,
+            COALESCE(Ar_Path_New, '/exclusivo') AS AreaPathNew
             FROM Tbl_Formularios WHERE IdArea = @idArea AND IdProceso = @idProceso ORDER BY AreaLabel
             ";
             var listaFormularios = new List<MenuAreaProcesoFormulario>();

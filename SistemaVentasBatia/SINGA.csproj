@@ -31,6 +31,9 @@
 	<ItemGroup>
 	  <None Remove="ClientApp\logo_fondo.png" />
 	  <None Remove="ClientApp\src\app\models\acceso.ts" />
+	  <None Remove="ClientApp\src\app\models\cuentascontables.ts" />
+	  <None Remove="ClientApp\src\app\models\naturaleza.ts" />
+	  <None Remove="ClientApp\src\app\models\tipocuenta.ts" />
 	  <None Remove="ClientApp\src\app\models\usuario.ts" />
 	  <None Remove="ClientApp\src\app\stores\StoreUser.ts" />
 	  <None Remove="ClientApp\src\logo_fondo.png" />
@@ -50,6 +53,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <TypeScriptCompile Include="ClientApp\src\app\models\tipocuenta.ts" />
+	  <TypeScriptCompile Include="ClientApp\src\app\models\naturaleza.ts" />
+	  <TypeScriptCompile Include="ClientApp\src\app\models\cuentascontables.ts" />
 	  <TypeScriptCompile Include="ClientApp\src\app\models\acceso.ts" />
 	  <TypeScriptCompile Include="ClientApp\src\app\models\usuario.ts" />
 	  <TypeScriptCompile Include="ClientApp\src\app\stores\StoreUser.ts" />

@@ -40,5 +40,20 @@ namespace SINGA.Enums
         Aviso = 3,
         Info = 4
     }
-
+    public enum TipoCuenta
+    {
+       Activo = 1,
+       Pasivo = 2,
+       Capital = 3
+    }
+    public enum Naturaleza
+    {
+        Deudor = 1,
+        Acreedora = 2
+    }
+    public enum EstatusCtaCon
+    {
+        Activo = 1,
+        Inactivo = 2
+    }
 }

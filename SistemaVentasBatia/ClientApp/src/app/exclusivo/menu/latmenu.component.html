@@ -1,5 +1,5 @@
 <!--MENU ESTATICO-->
-<nav id="sidebarMenustatic" class=" d-none d-md-block sidebar"
+<nav *ngIf="menu != null && menu.length > 0" id="sidebarMenustatic" class=" d-none d-md-block sidebar"
      [ngClass]="{
      'collapse text-md-center': !menuExpandido,
      'expanded text-md-start': menuExpandido && !menuExpandidoSubSubMenu,
@@ -58,31 +58,31 @@
 </nav>
 
 <!--PARA MOVILES-->
-<nav id="sidebarMenu" class=" col-md-auto d-md-none sidebar collapse"
+<!--<nav id="sidebarMenu" class=" col-md-auto d-md-none sidebar collapse"
      [ngClass]="{
      'expanded text-md-start': menuExpandidophone && !menuExpandidoSubSubMenuphone,
      'expandedSubSubMenu text-md-start': menuExpandido && menuExpandidoSubSubMenuphone}"
      (mouseenter)="openMenu()"
      (mouseleave)="closeMenuMouse()">
-    <ul class="nav row" [ngClass]="menuExpandidophone ? 'text-md-start' : 'text-md-center'">
+    <ul class="nav row" [ngClass]="menuExpandidophone ? 'text-md-start' : 'text-md-center'">-->
         <!--MENU-->
-        <li *ngFor="let menuArea of menu" class="nav-item" (click)="toggleSubMenu( menuArea.areaDescripcion,1); openMenu()"
+        <!--<li *ngFor="let menuArea of menu" class="nav-item" (click)="toggleSubMenu( menuArea.areaDescripcion,1); openMenu()"
             [ngClass]="menuExpandidophone ? 'text-md-start' : 'text-md-center'">
             <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
                 <span><i class="fa-solid {{ menuArea.areaIcono }} fa-2x"></i><span class="h5"> {{ menuArea.areaDescripcion }}</span></span>
             </a>
             <div class="submenu text-start ps-4" id="{{ menuArea.areaDescripcion}}">
                 <hr />
-                <ul>
+                <ul>-->
 
                     <!--SUBMENU-->
-                    <li *ngFor="let menuAreaProceso of menuArea.menuAreaProceso" (click)="toggleSubSubMenu( menuArea.areaDescripcion + menuAreaProceso.proceso, $event)">
+                    <!--<li *ngFor="let menuAreaProceso of menuArea.menuAreaProceso" (click)="toggleSubSubMenu( menuArea.areaDescripcion + menuAreaProceso.proceso, $event)">
                         <span class="nav-link"><i class="fa-solid fa-chevron-down"></i> {{ menuAreaProceso.proceso }}</span>
                         <div class="subsubmenu ps-4" [id]="menuArea.areaDescripcion + menuAreaProceso.proceso">
-                            <ul>
+                            <ul>-->
 
                                 <!--SUBSUBMENU-->
-                                <li *ngFor="let menuAreaProcesoFormulario of menuAreaProceso.menuAreaProcesoFormulario"
+                                <!--<li *ngFor="let menuAreaProcesoFormulario of menuAreaProceso.menuAreaProcesoFormulario"
                                     class="nav-item"
                                     (click)="toggleSubMenu(menuArea.areaDescripcion,1); closeMenu()"
                                     [routerLink]="[menuAreaProcesoFormulario.areaPathNew]"
@@ -105,4 +105,4 @@
             </a>
         </li>
     </ul>
-</nav>
+</nav>-->

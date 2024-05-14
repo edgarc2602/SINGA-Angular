@@ -24,5 +24,20 @@ namespace SINGA.Controllers
         {
             return await logic.ObtenerMeses();
         }
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<CatalogoDTO>> GetNaturaleza()
+        {
+            return await logic.ObtenerNaturaleza();
+        }
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<CatalogoDTO>> GetTipoCuenta()
+        {
+            return await logic.ObtenerTipoCuenta();
+        }
+        [HttpGet("[action]")]
+        public async Task<IEnumerable<CatalogoDTO>> GetCtasPadres()
+        {
+            return await logic.ObtenerCtasPadres();
+        }
     }
 }

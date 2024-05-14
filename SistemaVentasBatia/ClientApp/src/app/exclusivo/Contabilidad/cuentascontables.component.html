@@ -1,0 +1,118 @@
+﻿<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<div [@fadeInOut]>
+    <br />
+    <div class="col-12 mt-1 " style="position: relative;">
+        <h1 class="h2" style="position: relative; top: 0; left: 0; z-index: 1;">Cuentas Contables</h1>
+    </div>
+    <div class="row d-flex align-items-center">
+        <div class="col-sm-12 col-md-6 text-right">
+            <button type="button" (click)="openNew(0)" class="btn btn-lg btn-outline-primary" id="btnCrearProspecto"><i class="fa-solid fa-plus"></i> Nueva Cuenta Contable</button>
+        </div>
+    </div>
+    <br />
+    <div *ngIf="lctacon.cuentasContables && lctacon.cuentasContables.length > 0" class="table-container box-shadow fade-in-container">
+        <table class="table table-striped table-responsive">
+            <thead class="sticky-top">
+                <tr class="d-md-none">
+                    <th class="ps-2 text-start">Cuentas Contables</th>
+                    <!--<th></th>-->
+                </tr>
+                <tr class="d-none d-md-table-row">
+                    <th>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-2 col-sm-6 col-1">
+                                <span class="ms-2">No.Cuenta</span>
+                            </div>
+                            <div class="col-md-2 col-sm-6 col-5" style="text-align:center">
+                                <span class="ms-2">Descripcion</span>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-6">
+                                <span class="ms-1">Tipo Cuenta</span>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-2">
+                                <span class="ms-1">Cta Padre</span>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-6">
+                                <span class="ms-1">Naturaleza</span>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-6">
+                                <span class="ms-1">Cod Agrupador</span>
+                            </div>
+                            <div class="col-md-2 col-sm-6 col-6" style="text-align:center">
+                                <span class="ms-2">Estatus</span>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-6" style="text-align:center">
+                                <span class="ms-1">Editar</span>
+                            </div>
+
+                        </div>
+                    </th>
+                    <!--<th></th>-->
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cot of lctacon.cuentasContables">
+                    <td>
+                        <div class="row d-flex align-items-center">
+                            <div class="col-md-2 col-sm-6 col-2">
+                                <span class="badge d-md-none">Cuenta</span>
+                                <div class="ms-2">{{ cot.noCuenta }}</div>
+                            </div>
+                            <div class="col-md-2 col-sm-6 col-5">
+                                <span class="badge d-md-none">Descripcion</span>
+                                <div class="ms-2">{{ cot.descripcionC }}</div>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-5">
+                                <span class="badge d-md-none">Tipo:</span>
+                                <div class="ms-1 small">{{ cot.tipoCuenta }}</div>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-3">
+                                <span class="badge d-md-none">Cuenta Padre:</span>
+                                <div class="ms-1">{{ cot.noCtaPadre }}</div>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-5">
+                                <span class="badge d-md-none">Naturaleza:</span>
+                                <div class="ms-1 small">{{ cot.naturaleza }}</div>
+                            </div>
+
+                            <div class="col-md-1 col-sm-6 col-4">
+                                <span class="badge d-md-none">Codigo Sat:</span>
+                                <div class="ms-1">{{ cot.codigoAgrupador }}</div>
+                            </div>
+                            <div class="col-md-2 col-sm-6 col-4">
+                                <span class="badge d-md-none">Estatus:</span>
+                                <div class="ms-2">{{ cot.estatus ? 'Bloqueado' : 'Desbloqueado' }}</div>
+                            </div>
+                            <div class="col-md-1 col-sm-6 col-4">
+                                <a class="btn btn-sm btn-outline-success" (click)="openNew(cot.id)" data-bs-toggle="tooltip" title="Editar Cuenta Contable">
+                                    <i class="fa-solid fa-pencil fa-2x"></i>
+                                </a>
+                            </div>
+
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div *ngIf="lctacon.cuentasContables && lctacon.cuentasContables.length > 0">
+        <pagina-widget [pagina]="lctacon.pagina" [numPaginas]="lctacon.numPaginas" [rows]="lctacon.rows" (chgEvent)="matPagina($event)"></pagina-widget>
+    </div>
+    <div class="sticky-container-dash align-content-center align-middle">
+        <div class="d-block d-md-none row pb-5">
+            <div class="col-12">
+            </div>
+        </div>
+        <div class="d-none d-lg-block row pb-2">
+            <div class="col-12">
+            </div>
+        </div>
+    </div>
+    <br />
+</div>
+<toast-widget></toast-widget>
+<confirmacion-widget (confirmaEvent)="confirmacionEvent($event)"></confirmacion-widget>
+<cuentacontableagregar-widget (CtaCon)="getCtaCon()"></cuentacontableagregar-widget>
