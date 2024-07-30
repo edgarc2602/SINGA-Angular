@@ -6,12 +6,21 @@
      'expandedSubSubMenu text-md-start': menuExpandido && menuExpandidoSubSubMenu}"
      (mouseenter)="openMenu()"
      (mouseleave)="closeMenuMouse()">
+    <br />
     <ul class="nav row" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
         <!--MENU-->
         <li *ngFor="let menuArea of menu" class="nav-item" (click)="toggleSubMenu( menuArea.areaDescripcion,1); openMenu()"
-            [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
+            [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-start'">
             <a class="nav-link" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                <span><i class="fa-solid {{ menuArea.areaIcono }} fa-1x"></i><span *ngIf="menuExpandidotext"> {{ menuArea.areaDescripcion }}</span></span>
+                <div class="row">
+                    <div class="col-md-2 text-center">
+                        <span><i class="fa-solid {{ menuArea.areaIcono }} fa-1x"></i></span>
+                    </div>
+                    <div class="col-md-10">
+                        <span *ngIf="menuExpandidotext"> {{ menuArea.areaDescripcion }}</span>
+                    </div>
+                </div>
+
             </a>
             <div class="submenu text-start ps-2" id="{{ menuArea.areaDescripcion}}">
                 <hr />
@@ -32,10 +41,10 @@
                                     aria-current="page">
                                     <a class="nav-link border-bottom">
                                         <div class="row d-flex align-items-center">
-                                            <div class="col-md-2 col-2 text-end">
-                                                <i class="fa-solid fa-arrow-right text-start"></i>
+                                            <div class="col-md-3 col-2 text-end">
+                                                <i class="fa-solid fa-arrow-right text-start me-2"></i>
                                             </div>
-                                            <div class="col-md-10 col-6">
+                                            <div class="col-md-9 col-6">
                                                 {{ menuAreaProcesoFormulario.areaLabel }}
                                             </div>
                                         </div>
@@ -48,7 +57,7 @@
                 <hr />
             </div>
         </li>
-        <li class="nav-item" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'" (click)="toggleTheme()">
+        <li class="nav-item" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-start'" (click)="toggleTheme()">
             <a class="nav-link">
                 <span *ngIf="isDarkTheme"> <i class="fa-solid fa-sun fa-1x" style="color: lightgray;"></i><span *ngIf="menuExpandidotext"> Tema</span></span>
                 <span *ngIf="!isDarkTheme"> <i class="fa-solid fa-moon fa-1x" style="color: #333333;"></i><span *ngIf="menuExpandidotext"> Tema</span></span>

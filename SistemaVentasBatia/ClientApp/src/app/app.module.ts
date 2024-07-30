@@ -15,8 +15,6 @@ import { ToastWidget } from './widgets/toast/toast.widget';
 import { EliminaWidget } from './widgets/elimina/elimina.widget';
 import { StoreUser } from './stores/StoreUser';
 import { CommonModule } from '@angular/common';
-import { MatTableModule } from '@angular/material/table';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './exclusivo/dashboard/dashboard.component';
 import { CuentasContablesComponent } from './exclusivo/Contabilidad/CuentasContables.component';
