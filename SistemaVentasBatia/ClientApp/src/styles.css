@@ -15,6 +15,7 @@ a {
     background-color: #1b6ec2;
     border-color: #1861ac;
 }
+
 .toggle-btn {
     width: 60px;
     height: 30px;
@@ -25,10 +26,11 @@ a {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.toggle-btn.active {
-    background-color: #4a92fe;
-    color: white;
-}
+
+    .toggle-btn.active {
+        background-color: #4a92fe;
+        color: white;
+    }
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -134,7 +136,7 @@ html {
 }
 
 #sidebarMenustatic {
-    position: absolute;
+    /*position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -143,43 +145,66 @@ html {
     width: 70px; 
     overflow-y: auto;
     overflow-x: hidden;
-    transition: width 0.5s, height 0.5s, box-shadow 0.5s;
+    transition: width 0.5s, height 0.5s, box-shadow 0.5s;*/
+    transition: background-color 0.3s ease,color 0.3s ease,border-color 0.3s ease;
+    background-color: rgba(248, 249, 250, 0.8);
+    backdrop-filter: blur(2px);
+    color: black
 }
 
     #sidebarMenustatic.expanded {
         overflow-y: auto;
         overflow-x: hidden;
         height: 100vh;
-        width: 200px;
-        transition: width 0.1s, height 0.5s, box-shadow 0.5s;
+        width: 250px;
+        transition: width 0.1s ease, height 2s ease, box-shadow 0.1s ease;
     }
+
     #sidebarMenustatic.expandedSubSubMenu {
         overflow-y: auto;
         overflow-x: hidden;
         height: 100vh;
         width: 300px;
-        transition: width 0.1s, height 0.1s, box-shadow 0.1s;
+        transition: width 0.1s ease, height 2s ease, box-shadow 0.1s ease;
     }
 
     #sidebarMenustatic.collapse {
-        transition: width 0.1s, height 0.1s, box-shadow 0.1s;
+        transition: width 0.1s ease, height 2s ease, box-shadow 0.1s ease;
         width: 70px;
     }
-#sidebarMenu {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 100vh;
-    width: 200px;
-    transition: width 0.1s, height 0.5s, box-shadow 0.5s;
+
+#sidebarMenuMovil {
+    transition: background-color 0.3s ease,color 0.3s ease,border-color 0.3s ease;
+    background-color: rgba(248, 249, 250, 0.8);
+    backdrop-filter: blur(2px);
+    color: black;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    width: 350px;
 }
 
+    #sidebarMenuMovil.expanded {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100vh;
+        width: 350px;
+        transition: width 0.1s ease, height 2s ease, box-shadow 0.1s ease;
+    }
+
+    #sidebarMenuMovil.expandedSubSubMenu {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 100vh;
+        width: 350px;
+        transition: width 0.1s ease, height 2s ease, box-shadow 0.1s ease;
+    }
+/*
     #sidebarMenu.expandedSubSubMenu {
         overflow-y: auto;
         overflow-x: hidden;
         height: 100vh;
         width: 300px;
-        transition: width 0.1s, height 0.1s, box-shadow 0.1s;
-    }
+        transition: width 0.1s ease, height 2s ease, box-shadow 0.1s ease;
+    }*/
 
 
 /* Navbar
@@ -697,6 +722,7 @@ input:focus::-webkit-input-placeholder {
             width: 250px;
             transition: width 0.3s;
         }
+
         .dark-theme #sidebarMenustatic.collapse {
             transition: width 0.1s, height 0.1s, box-shadow 0.1s;
             width: 60px;
@@ -919,9 +945,31 @@ input:focus::-webkit-input-placeholder {
         background-color: #282424;
     }
 
-        .dark-theme .nav-link:hover {
-            color: #2470dc;
-        }
+    .dark-theme .nav-link:hover {
+        color: #2470dc;
+    }
+
+    .dark-theme .nav-item:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(2px);
+    }
+
+    .dark-theme #sidebarMenuMovil {
+        /*position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 101;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+    width: 70px; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: width 0.5s, height 0.5s, box-shadow 0.5s;*/
+        transition: background-color 0.3s ease,color 0.3s ease,border-color 0.3s ease;
+        background-color: rgba(21, 21, 21, 0.8);
+        backdrop-filter: blur(2px);
+        color: white
+    }
 
 .loading-bar {
     position: relative;
@@ -991,6 +1039,31 @@ input:focus::-webkit-input-placeholder {
     color: #2470dc;
 }
 
+.submenumov {
+    transition: all 0.1s ease;
+    overflow: hidden;
+    max-height: 0;
+}
+
+    .submenumov.active {
+        transition: all 0.1s ease;
+    }
+
+.subsubmenumov {
+    transition: all 0.1s ease;
+    overflow: hidden;
+    max-height: 0;
+}
+
+    .subsubmenumov.active {
+        transition: all 0.1s ease;
+    }
+
+.subsubmenumovhover:hover {
+    box-shadow: 5px;
+    color: #2470dc;
+}
+
 .active {
     display: block !important;
     max-height: 1000px;
@@ -1021,10 +1094,12 @@ ul {
     -webkit-user-select: none; /* Chrome, Safari, Opera */
     -ms-user-select: none; /* Internet Explorer/Edge */
 }
+
     .nav-link:hover {
         color: #2470dc;
         box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .09);
     }
+
 .nav-item:hover {
     background-color: #e2fffe
 }
@@ -1032,6 +1107,7 @@ ul {
 .fade-in-out {
     animation: fadeInOut 0.2s ease-in-out;
 }
+
 table {
     margin-bottom: 0;
     border-spacing: 0;
@@ -1057,6 +1133,7 @@ table {
         padding-left: 0;
         padding-right: 0;
     }
+
 .switch {
     position: relative;
 }

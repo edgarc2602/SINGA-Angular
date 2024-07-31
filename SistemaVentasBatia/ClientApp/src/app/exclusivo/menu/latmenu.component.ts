@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, Inject } from '@angular/core';
+import { Component, OnInit, HostListener, Inject, ViewChild, ElementRef } from '@angular/core';
 import { MenuArea } from '../../models/menuarea';
 import { HttpClient } from '@angular/common/http';
 import { PlotAbandsBottomLineOptions } from 'highcharts';
@@ -10,6 +10,7 @@ declare var bootstrap: any;
     templateUrl: './latmenu.component.html'
 })
 export class LatMenuComponent implements OnInit {
+    @ViewChild('menuStatic', { static: false }) menuStatic: ElementRef;
     isDarkTheme: boolean = false;
     menuExpandido: boolean = false;
     menuExpandidoSubSubMenu: boolean = false;
@@ -25,9 +26,7 @@ export class LatMenuComponent implements OnInit {
     constructor(@Inject('BASE_URL') private url: string, private http: HttpClient) {
         http.get<MenuArea>(`${url}api/Menu/ObtenerMenu`).subscribe(response => {
             this.menu = response;
-
         }, err => {
-            
         });
     }
 
@@ -36,6 +35,7 @@ export class LatMenuComponent implements OnInit {
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         });
+        
     }
 
     @HostListener('document:click', ['$event'])
@@ -126,20 +126,35 @@ export class LatMenuComponent implements OnInit {
     }
 
     openMenu() {
+        
         this.menuExpandidoSubSubMenu = false;
         this.menuExpandidoSubSubMenuphone = false;
         this.menuExpandidoTextSubSubMenu = false;
         this.menuExpandidoTextSubSubMenuphone = false;
 
-            this.menuExpandido = true;
+        this.menuExpandido = true;
         this.menuExpandidophone = true;
             setTimeout(() => {
                 this.menuExpandidotext = true;
                 this.menuExpandidotextphone = true;
+
+                const div = document.querySelector('#sidebarMenustatic');
+
+                if (div) {
+                    // Quita el scroll bar estableciendo overflow a 'hidden'
+                    (div as HTMLElement).style.overflow = 'auto';
+                    (div as HTMLElement).style.overflowX = 'hidden';
+                }
             }, 110);
     }
 
     closeMenu() {
+        const div = document.querySelector('sidebarMenustatic');
+
+        if (div) {
+            // Quita el scroll bar estableciendo overflow a 'hidden'
+            (div as HTMLElement).style.overflow = 'hidden';
+        }
         this.menuExpandidoSubSubMenu = false;
         this.menuExpandidoSubSubMenuphone = false;
         this.menuExpandidoTextSubSubMenu = false;
@@ -151,6 +166,7 @@ export class LatMenuComponent implements OnInit {
     }
 
     closeMenuMouse() {
+        
         setTimeout(() => {
             const submenus = document.querySelectorAll('.submenu.active');
             submenus.forEach((submenu) => {
@@ -168,6 +184,318 @@ export class LatMenuComponent implements OnInit {
             this.menuExpandidophone = false;
             this.menuExpandidotext = false;
             this.menuExpandidotextphone = false;
+
+            const div = document.querySelector('#sidebarMenustatic');
+
+            if (div) {
+                // Quita el scroll bar estableciendo overflow a 'hidden'
+                (div as HTMLElement).style.overflow = 'hidden';
+                (div as HTMLElement).style.overflowY = 'hidden';
+            }
+            if (this.menuStatic) {
+                const container = this.menuStatic.nativeElement;
+                container.scrollTop = 0;
+            }
         }, 120);
     }
+    onToggleClick(event: Event) {
+        // Remover la clase 'active' de todos los enlaces
+        const links = document.querySelectorAll('.nav-link');
+        links.forEach((link) => {
+            link.classList.remove('active');
+        });
+
+        // Agregar la clase 'active' al enlace clicado
+        const target = event.target as HTMLElement;
+        target.classList.add('active');
+    }
+
+
+
+    //MOVILES
+
+    toggleMenuMov() {
+        this.menuExpandido = !this.menuExpandido;
+    }
+
+    toggleSubMenuMov(submenuId: string, idCierre: number) {
+
+        this.menuExpandidoSubSubMenu = false;
+        this.menuExpandidoSubSubMenuphone = false;
+        this.menuExpandidoTextSubSubMenu = false;
+        this.menuExpandidoTextSubSubMenuphone = false;
+        this.menuExpandido = true;
+        this.menuExpandidophone = true;
+        this.menuExpandidotext = true;
+        this.menuExpandidotextphone = true;
+        this.ultMenu = submenuId;
+        //Selecciona los menus activos
+        const submenus = document.querySelectorAll('.submenumov.active');
+        submenus.forEach((submenu) => {
+            if (submenu.id !== submenuId) {
+                submenu.classList.remove('active');
+            }
+        });
+        if (idCierre == 1) {
+            const submenu = document.getElementById(submenuId);
+            submenu.classList.toggle('active');
+        }
+        const subsubmenus = document.querySelectorAll('.subsubmenumov.active');
+        subsubmenus.forEach((subsubmenus) => {
+            subsubmenus.classList.remove('active');
+        });
+    }
+
+    toggleSubSubMenuMov(subsubmenuId: string, event: Event) {
+
+        event.stopPropagation();
+        const subsubmenus = document.querySelectorAll('.subsubmenumov.active');
+        subsubmenus.forEach((subsubmenu) => {
+            if (subsubmenu.id !== subsubmenuId) {
+                subsubmenu.classList.remove('active');
+                this.menuExpandidoSubSubMenu = false;
+                this.menuExpandidoSubSubMenuphone = false;
+                this.menuExpandidoTextSubSubMenu = false;
+                this.menuExpandidoTextSubSubMenuphone = false;
+
+
+            }
+        });
+        const subsubmenu = document.getElementById(subsubmenuId);
+        subsubmenu.classList.toggle('active');
+        this.menuExpandidoSubSubMenu = !this.menuExpandidoSubSubMenu;
+        this.menuExpandidoSubSubMenuphone = !this.menuExpandidoSubSubMenuphone;
+        setTimeout(() => {
+            this.menuExpandidoTextSubSubMenu = !this.menuExpandidoTextSubSubMenu;
+            this.menuExpandidoTextSubSubMenuphone = !this.menuExpandidoTextSubSubMenuphone;
+        }, 250);
+
+    }
+
+    togglePageMenuMov(subsubmenuId: string, event: Event) {
+        event.stopPropagation();
+        const subsubmenu = document.getElementById(subsubmenuId);
+        subsubmenu.classList.toggle('active');
+    }
+
+    openMenuMov() {
+
+        this.menuExpandidoSubSubMenu = false;
+        this.menuExpandidoSubSubMenuphone = false;
+        this.menuExpandidoTextSubSubMenu = false;
+        this.menuExpandidoTextSubSubMenuphone = false;
+
+        this.menuExpandido = true;
+        this.menuExpandidophone = true;
+        setTimeout(() => {
+            this.menuExpandidotext = true;
+            this.menuExpandidotextphone = true;
+
+            const div = document.querySelector('#sidebarMenuMovil');
+
+            if (div) {
+                // Quita el scroll bar estableciendo overflow a 'hidden'
+                (div as HTMLElement).style.overflow = 'auto';
+                (div as HTMLElement).style.overflowX = 'hidden';
+            }
+        }, 110);
+    }
+
+    closeMenuMov() {
+        const div = document.querySelector('sidebarMenuMovil');
+
+        if (div) {
+            // Quita el scroll bar estableciendo overflow a 'hidden'
+            (div as HTMLElement).style.overflow = 'hidden';
+        }
+        this.menuExpandidoSubSubMenu = false;
+        this.menuExpandidoSubSubMenuphone = false;
+        this.menuExpandidoTextSubSubMenu = false;
+        this.menuExpandidoTextSubSubMenuphone = false;
+        this.menuExpandido = false;
+        this.menuExpandidophone = false;
+        this.menuExpandidotext = false;
+        this.menuExpandidotextphone = false;
+    }
+
+    closeMenuMouseMov() {
+
+        setTimeout(() => {
+            const submenus = document.querySelectorAll('.submenumov.active');
+            submenus.forEach((submenu) => {
+                submenu.classList.remove('active');
+            });
+            const subsubmenus = document.querySelectorAll('.subsubmenumov.active');
+            subsubmenus.forEach((subsubmenus) => {
+                subsubmenus.classList.remove('active');
+            });
+            this.menuExpandidoSubSubMenu = false;
+            this.menuExpandidoSubSubMenuphone = false;
+            this.menuExpandidoTextSubSubMenu = false;
+            this.menuExpandidoTextSubSubMenuphone = false;
+            this.menuExpandido = false;
+            this.menuExpandidophone = false;
+            this.menuExpandidotext = false;
+            this.menuExpandidotextphone = false;
+
+            const div = document.querySelector('#sidebarMenuMovil');
+
+            if (div) {
+                // Quita el scroll bar estableciendo overflow a 'hidden'
+                (div as HTMLElement).style.overflow = 'hidden';
+                (div as HTMLElement).style.overflowY = 'hidden';
+            }
+            if (this.menuStatic) {
+                const container = this.menuStatic.nativeElement;
+                container.scrollTop = 0;
+            }
+        }, 120);
+    }
+    onToggleClickMov(event: Event) {
+        // Remover la clase 'active' de todos los enlaces
+        const links = document.querySelectorAll('.nav-link');
+        links.forEach((link) => {
+            link.classList.remove('active');
+        });
+
+        // Agregar la clase 'active' al enlace clicado
+        const target = event.target as HTMLElement;
+        target.classList.add('active');
+    }
+    //toggleSubMenuMov(submenuId: string, idCierre: number) {
+    //    this.openMenuMov();
+    //    this.ultMenu = submenuId;
+    //    //Selecciona los menus activos
+    //    const submenus = document.querySelectorAll('.submenumov.active');
+    //    submenus.forEach((submenu) => {
+    //        if (submenu.id !== submenuId) {
+    //            submenu.classList.remove('active');
+    //        }
+    //    });
+    //    if (idCierre == 1) {
+    //        const submenu = document.getElementById(submenuId);
+    //        submenu.classList.add('active');
+    //    }
+    //    const subsubmenus = document.querySelectorAll('.subsubmenumov.active');
+    //    subsubmenus.forEach((subsubmenus) => {
+    //        subsubmenus.classList.remove('active');
+    //    });
+    //}
+
+    //toggleSubSubMenuMov(subsubmenuId: string, event: Event) {
+
+    //    event.stopPropagation();
+    //    const subsubmenus = document.querySelectorAll('.subsubmenumov.active');
+    //    subsubmenus.forEach((subsubmenu) => {
+    //        if (subsubmenu.id !== subsubmenuId) {
+    //            subsubmenu.classList.remove('active');
+    //            this.menuExpandidoSubSubMenu = false;
+    //            this.menuExpandidoSubSubMenuphone = false;
+    //            this.menuExpandidoTextSubSubMenu = false;
+    //            this.menuExpandidoTextSubSubMenuphone = false;
+
+
+    //        }
+    //    });
+    //    const subsubmenu = document.getElementById(subsubmenuId);
+    //    subsubmenu.classList.toggle('active');
+    //    this.menuExpandidoSubSubMenu = !this.menuExpandidoSubSubMenu;
+    //    this.menuExpandidoSubSubMenuphone = !this.menuExpandidoSubSubMenuphone;
+    //    setTimeout(() => {
+    //        this.menuExpandidoTextSubSubMenu = !this.menuExpandidoTextSubSubMenu;
+    //        this.menuExpandidoTextSubSubMenuphone = !this.menuExpandidoTextSubSubMenuphone;
+    //    }, 250);
+
+    //}
+
+    //togglePageMenuMov(subsubmenuId: string, event: Event) {
+    //    event.stopPropagation();
+    //    const subsubmenu = document.getElementById(subsubmenuId);
+    //    subsubmenu.classList.toggle('active');
+    //}
+
+    //openMenuMov() {
+
+    //    this.menuExpandidoSubSubMenu = false;
+    //    this.menuExpandidoSubSubMenuphone = false;
+    //    this.menuExpandidoTextSubSubMenu = false;
+    //    this.menuExpandidoTextSubSubMenuphone = false;
+
+    //    this.menuExpandido = true;
+    //    this.menuExpandidophone = true;
+    //    setTimeout(() => {
+    //        this.menuExpandidotext = true;
+    //        this.menuExpandidotextphone = true;
+
+    //        const div = document.querySelector('#sidebarMenuMov');
+
+    //        if (div) {
+    //            // Quita el scroll bar estableciendo overflow a 'hidden'
+    //            (div as HTMLElement).style.overflow = 'auto';
+    //            (div as HTMLElement).style.overflowX = 'hidden';
+    //        }
+    //    }, 110);
+    //}
+
+    //closeMenuMov() {
+    //    const div = document.querySelector('sidebarMenuMov');
+
+    //    if (div) {
+    //        // Quita el scroll bar estableciendo overflow a 'hidden'
+    //        (div as HTMLElement).style.overflow = 'hidden';
+    //    }
+    //    this.menuExpandidoSubSubMenu = false;
+    //    this.menuExpandidoSubSubMenuphone = false;
+    //    this.menuExpandidoTextSubSubMenu = false;
+    //    this.menuExpandidoTextSubSubMenuphone = false;
+    //    this.menuExpandido = false;
+    //    this.menuExpandidophone = false;
+    //    this.menuExpandidotext = false;
+    //    this.menuExpandidotextphone = false;
+    //}
+
+    //closeMenuMouseMov() {
+
+    //    setTimeout(() => {
+    //        const submenus = document.querySelectorAll('.submenumov.active');
+    //        submenus.forEach((submenu) => {
+    //            submenu.classList.remove('active');
+    //        });
+    //        const subsubmenus = document.querySelectorAll('.subsubmenumov.active');
+    //        subsubmenus.forEach((subsubmenus) => {
+    //            subsubmenus.classList.remove('active');
+    //        });
+    //        this.menuExpandidoSubSubMenu = false;
+    //        this.menuExpandidoSubSubMenuphone = false;
+    //        this.menuExpandidoTextSubSubMenu = false;
+    //        this.menuExpandidoTextSubSubMenuphone = false;
+    //        this.menuExpandido = false;
+    //        this.menuExpandidophone = false;
+    //        this.menuExpandidotext = false;
+    //        this.menuExpandidotextphone = false;
+
+    //        const div = document.querySelector('#sidebarMenuMov');
+
+    //        if (div) {
+    //            // Quita el scroll bar estableciendo overflow a 'hidden'
+    //            (div as HTMLElement).style.overflow = 'hidden';
+    //            (div as HTMLElement).style.overflowY = 'hidden';
+    //        }
+    //        if (this.menuStatic) {
+    //            const container = this.menuStatic.nativeElement;
+    //            container.scrollTop = 0;
+    //        }
+    //    }, 120);
+    //}
+    //onToggleClickMov(event: Event) {
+    //    // Remover la clase 'active' de todos los enlaces
+    //    const links = document.querySelectorAll('.nav-link');
+    //    links.forEach((link) => {
+    //        link.classList.remove('active');
+    //    });
+
+    //    // Agregar la clase 'active' al enlace clicado
+    //    const target = event.target as HTMLElement;
+    //    target.classList.add('active');
+    //}
 }

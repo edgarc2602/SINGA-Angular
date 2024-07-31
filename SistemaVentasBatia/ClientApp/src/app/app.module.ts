@@ -28,6 +28,7 @@ import { ConfirmacionWidget } from './widgets/confirmacion/confirmacion.widget';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
+
  
 
 @NgModule({
@@ -58,7 +59,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         FormsModule,
         ReactiveFormsModule,
         CommonModule,
-        MatTableModule,
+        //MatTableModule,
         MatPaginatorModule,
         MatSlideToggleModule,
         RouterModule.forRoot([
