@@ -1,14 +1,17 @@
 ﻿using AutoMapper;
 using SINGA.Models;
-using SINGA.Repositories;
+using SINGA.Repositories.Contabilidad;
 using SINGA.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SINGA.Enums;
+using SINGA.Models.Miscelaneos;
+using SINGA.DTOs.Miscelaneos;
 using Microsoft.Extensions.Options;
 using SINGA.Controllers;
+using SINGA.Models.MenuLateral;
+using SINGA.Repositories;
 
 namespace SINGA.Services
 {
@@ -30,8 +33,7 @@ namespace SINGA.Services
 
         public async Task<List<MenuArea>> ObtenerMenu()
         {
-            var listaMenuArea = new List<MenuArea>();
-            listaMenuArea = await _MenuRepo.ObtenerMenu();
+            var listaMenuArea = await _MenuRepo.ObtenerMenu();
             foreach( var area in listaMenuArea)
             {
                 area.MenuAreaProceso = await _MenuRepo.ObtenerProcesos(area.IdArea);

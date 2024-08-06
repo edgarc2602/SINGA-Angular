@@ -1,30 +1,14 @@
 <!--MENU ESTATICO-->
-<nav *ngIf="menu != null && menu.length > 0" id="sidebarMenustatic" class=" d-none d-xl-block sidebar collapse"
-     [ngClass]="{
-     'collapse text-md-center': !menuExpandido,
-     'expanded text-md-start': menuExpandido && !menuExpandidoSubSubMenu,
-     'expandedSubSubMenu text-md-start': menuExpandido && menuExpandidoSubSubMenu}"
+<nav *ngIf="menu != null" id="sidebarMenustatic" class=" d-none d-xl-block sidebar collapse"
+     [ngClass]="{'collapse text-md-center': !menuExpandido,'expanded text-md-center': menuExpandido && !menuExpandidoSubSubMenu,'expandedSubSubMenu text-md-center': menuExpandido && menuExpandidoSubSubMenu}"
      (mouseenter)="openMenu()"
      (mouseleave)="closeMenuMouse()"
      style="overflow:hidden; overflow-x: hidden; overflow-y: hidden" #menuStatic>
 
     <!--MENU-->
-    <ul class="nav row d-flex h-100 pt-2 " [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-center'">
-        <li *ngFor="let menuArea of menu" class="nav-item mb-2" (click)="toggleSubMenu( menuArea.areaDescripcion,1); openMenu()">
-            <a class="nav-link" data-bs-target="#sidebarMenu">
-                <div class="row">
-                    <div [ngClass]="{
-                         'col-md-12 text-center' : !menuExpandido,
-                         'col-md-2 text-start' : menuExpandido,
-                         'col-md-1 text-start' : menuExpandidoSubSubMenu
-                         }">
-                        <span><i class="fa-solid {{ menuArea.areaIcono }} fa-xl me-2"></i></span>
-                    </div>
-                    <div [ngClass]="menuExpandido ? 'col-md-10 text-start' : 'd-none text-start'">
-                        <span *ngIf="menuExpandidotext"> {{ menuArea.areaDescripcion }}</span>
-                    </div>
-                </div>
-            </a>
+    <ul class="nav row d-flex h-100 pt-2 " [ngClass]="menuExpandido ? 'text-start' : 'text-center'">
+        <li *ngFor="let menuArea of menu" (click)="toggleSubMenu( menuArea.areaDescripcion,1); openMenu()" class="nav-link  justify-content-center" data-bs-target="#sidebarMenu" >
+            <span  [ngClass]="{'col-md-12 text-center' : !menuExpandido,'col-md-12 text-center ms-2' : menuExpandido,'col-md-1 text-center' : menuExpandidoSubSubMenu}" ><i class="fa-solid {{ menuArea.areaIcono }} fa-1x me-2"></i><span *ngIf="menuExpandidotext">{{ menuArea.areaDescripcion }}</span> </span>
             <div class="submenu text-start ms-2" id="{{ menuArea.areaDescripcion}}">
 
                 <!--SUBMENU-->
@@ -44,33 +28,27 @@
                                             <div class="col-md-2 col-2 text-end">
                                                 <i class="fa-solid fa-arrow-right text-end"></i>
                                             </div>
-                                            <div class="col-md-10 col-6">
+                                            <div class="col-md-10 col-6 small">
                                                 {{ menuAreaProcesoFormulario.areaLabel }}
                                             </div>
                                         </div>
                                     </a>
                                 </li>
-                                <li>
-                                    <br />
-                                </li>
+                                
                             </ul>
-                            <br />
+                            <hr />
                         </div>
                     </li>
-                    <li>
-                        <br />
-                        <br />
-                    </li>
+
                 </ul>
                 <hr />
             </div>
         </li>
-
         <li class="nav-item" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-start'" (click)="toggleTheme()">
             <a class="nav-link border-bottom" data-bs-toggle="collapse" data-bs-target="#sidebarMenuMovil">
                 <div *ngIf="isDarkTheme" class="row">
                     <div class="col-md-2 col-2 text-start">
-                        <i class="fa-solid fa-sun fa-xl"></i>
+                        <i class="fa-solid fa-sun fa-1x"></i>
                     </div>
                     <div class="col-md-10 col-10 text-start">
                         <span> Tema</span>
@@ -78,7 +56,7 @@
                 </div>
                 <div *ngIf="!isDarkTheme" class="row">
                     <div class="col-md-2 col-2 text-start">
-                        <i class="fa-solid fa-moon fa-xl"></i>
+                        <i class="fa-solid fa-moon fa-1x"></i>
                     </div>
                     <div class="col-md-10 col-10 text-start">
                         <span> Tema</span>
@@ -86,33 +64,13 @@
                 </div>
             </a>
         </li>
-        <!--<div class="row">
-            <div [ngClass]="{
-         'col-md-12 text-center' : !menuExpandido,
-         'col-md-2 text-start' : menuExpandido,
-         'col-md-1 text-start' : menuExpandidoSubSubMenu
-         }">
-                <span><i class="fa-solid {{ menuArea.areaIcono }} fa-xl"></i></span>
-            </div>
-            <div [ngClass]="menuExpandido ? 'col-md-10 text-start' : 'd-none text-start'">
-                <span *ngIf="menuExpandidotext"> {{ menuArea.areaDescripcion }}</span>
-            </div>
-        </div>
-        <li class="nav-item" [ngClass]="menuExpandido ? 'text-md-start' : 'text-md-start'" (click)="toggleTheme()">
-            <a class="nav-link">
-                <span *ngIf="isDarkTheme"> <i class="fa-solid fa-sun fa-xl" style="color: lightgray;"></i><span *ngIf="menuExpandidotext"> Tema</span></span>
-                <span *ngIf="!isDarkTheme"> <i class="fa-solid fa-moon fa-xl" style="color: #333333;"></i><span *ngIf="menuExpandidotext"> Tema</span></span>
-            </a>
-        </li>-->
     </ul>
 </nav>
 
 
 <!--PARA MOVILES-->
-<nav *ngIf="menu != null && menu.length > 0" id="sidebarMenuMovil" class=" col-xl-auto d-xl-none sidebar collapse"
-     [ngClass]="{
-'expanded text-md-center': !menuExpandido,
-'expanded text-md-start': menuExpandido && !menuExpandidoSubSubMenu}">
+<nav *ngIf="menu != null" id="sidebarMenuMovil" class=" col-xl-auto d-xl-none sidebar collapse"
+     [ngClass]="{'expanded text-md-center': !menuExpandido,'expanded text-md-start': menuExpandido && !menuExpandidoSubSubMenu}">
     <!--MENU-->
     <ul class="nav row d-flex h-100">
         <li *ngFor="let menuArea of menu" class="nav-item" (click)="toggleSubMenuMov( menuArea.areaDescripcion + 'mov',1); openMenuMov()">
@@ -124,7 +82,6 @@
                     <div class="col-md-10 col-10 text-start h4 mb-3 mt-3">
                         <span> {{ menuArea.areaDescripcion }}</span>
                     </div>
-
                 </div>
             </a>
             <div class="submenumov text-start ps-2" id="{{ menuArea.areaDescripcion + 'mov'}}">

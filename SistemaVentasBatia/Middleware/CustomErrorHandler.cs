@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using SINGA.Models;
+using SINGA.Models.Miscelaneos;
 using System;
 using System.Collections.Generic;
 using System.Net;

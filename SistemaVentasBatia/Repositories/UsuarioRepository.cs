@@ -2,6 +2,7 @@
 using SINGA.Context;
 using SINGA.DTOs;
 using SINGA.Models;
+using SINGA.Models.Usuario;
 using System;
 using System.Collections.Generic;
 using System.Data;

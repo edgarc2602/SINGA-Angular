@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SINGA.Enums;
+using SINGA.Models.Miscelaneos;
 using Microsoft.AspNetCore.Server.IIS.Core;
 
 namespace SINGA.Repositories
@@ -57,10 +57,8 @@ From tb_mes
 
             try
             {
-                using (var connection = ctx.CreateConnection())
-                {
-                    naturaleza = (await connection.QueryAsync<Catalogo>(query)).ToList();
-                }
+                using var connection = ctx.CreateConnection();
+                naturaleza = (await connection.QueryAsync<Catalogo>(query)).ToList();
             }
             catch (Exception ex)
             {
@@ -78,10 +76,8 @@ From tb_mes
 
             try
             {
-                using (var connection = ctx.CreateConnection())
-                {
-                    naturaleza = (await connection.QueryAsync<Catalogo>(query)).ToList();
-                }
+                using var connection = ctx.CreateConnection();
+                naturaleza = (await connection.QueryAsync<Catalogo>(query)).ToList();
             }
             catch (Exception ex)
             {
@@ -99,10 +95,8 @@ From tb_mes
 
             try
             {
-                using (var connection = ctx.CreateConnection())
-                {
-                    ctapadre = (await connection.QueryAsync<Catalogo>(query)).ToList();
-                }
+                using var connection = ctx.CreateConnection();
+                ctapadre = (await connection.QueryAsync<Catalogo>(query)).ToList();
             }
             catch (Exception ex)
             {

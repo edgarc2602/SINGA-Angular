@@ -30,11 +30,6 @@
 
 	<ItemGroup>
 	  <None Remove="ClientApp\logo_fondo.png" />
-	  <None Remove="ClientApp\src\app\models\acceso.ts" />
-	  <None Remove="ClientApp\src\app\models\cuentascontables.ts" />
-	  <None Remove="ClientApp\src\app\models\naturaleza.ts" />
-	  <None Remove="ClientApp\src\app\models\tipocuenta.ts" />
-	  <None Remove="ClientApp\src\app\models\usuario.ts" />
 	  <None Remove="ClientApp\src\app\stores\StoreUser.ts" />
 	  <None Remove="ClientApp\src\logo_fondo.png" />
 	</ItemGroup>
@@ -53,16 +48,33 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <TypeScriptCompile Include="ClientApp\src\app\models\tipocuenta.ts" />
-	  <TypeScriptCompile Include="ClientApp\src\app\models\naturaleza.ts" />
-	  <TypeScriptCompile Include="ClientApp\src\app\models\cuentascontables.ts" />
-	  <TypeScriptCompile Include="ClientApp\src\app\models\acceso.ts" />
-	  <TypeScriptCompile Include="ClientApp\src\app\models\usuario.ts" />
 	  <TypeScriptCompile Include="ClientApp\src\app\stores\StoreUser.ts" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Folder Include="ClientApp\src\app\models\Contabilidad\Consultas\" />
+	  <Folder Include="ClientApp\src\app\models\Contabilidad\Procesos\" />
+	  <Folder Include="ClientApp\src\app\models\Contabilidad\Reportes\" />
+	  <Folder Include="ClientApp\src\app\widgets\Contabilidad\Consultas\" />
+	  <Folder Include="ClientApp\src\app\widgets\Contabilidad\Procesos\" />
+	  <Folder Include="ClientApp\src\app\widgets\Contabilidad\Reportes\" />
 	  <Folder Include="ClientApp\src\assets\" />
+	  <Folder Include="Controllers\Contabilidad\Consultas\" />
+	  <Folder Include="Controllers\Contabilidad\Procesos\" />
+	  <Folder Include="Controllers\Contabilidad\Reportes\" />
+	  <Folder Include="DTOs\Consultas\" />
+	  <Folder Include="DTOs\Contabilidad\Consultas\" />
+	  <Folder Include="DTOs\Contabilidad\Procesos\" />
+	  <Folder Include="DTOs\Contabilidad\Reportes\" />
+	  <Folder Include="Models\Contabilidad\Consultas\" />
+	  <Folder Include="Models\Contabilidad\Procesos\" />
+	  <Folder Include="Models\Contabilidad\Reportes\" />
+	  <Folder Include="Repositories\Contabilidad\Consultas\" />
+	  <Folder Include="Repositories\Contabilidad\Procesos\" />
+	  <Folder Include="Repositories\Contabilidad\Reportes\" />
+	  <Folder Include="Services\Contabilidad\Consultas\" />
+	  <Folder Include="Services\Contabilidad\Procesos\" />
+	  <Folder Include="Services\Contabilidad\Reportes\" />
 	</ItemGroup>
 
 	<ItemGroup>

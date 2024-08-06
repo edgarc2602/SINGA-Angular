@@ -1,14 +1,14 @@
 ﻿using Dapper;
 using SINGA.Context;
-using SINGA.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SINGA.Enums;
+using SINGA.Models.Miscelaneos;
 using Microsoft.AspNetCore.Server.IIS.Core;
 using System.Data.Common;
 using System.Data;
+using SINGA.Models.MenuLateral;
 
 namespace SINGA.Repositories
 {
@@ -46,9 +46,9 @@ namespace SINGA.Repositories
                 using var connection = ctx.CreateConnection();
                 listaMenu = (await connection.QueryAsync<MenuArea>(query)).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             return listaMenu;
         }
@@ -73,9 +73,9 @@ namespace SINGA.Repositories
                 using var connection = ctx.CreateConnection();
                 listaMenu = (await connection.QueryAsync<MenuAreaProceso>(query, new { idArea })).ToList();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
             return listaMenu;
         }
@@ -101,9 +101,9 @@ namespace SINGA.Repositories
                 using var connection = ctx.CreateConnection();
                 listaFormularios = (await connection.QueryAsync<MenuAreaProcesoFormulario>(query, new { idArea, idProceso})).ToList();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
-                throw ex;
+                throw;
             }
             return listaFormularios;
         }

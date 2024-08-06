@@ -17,12 +17,12 @@ import { StoreUser } from './stores/StoreUser';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './exclusivo/dashboard/dashboard.component';
-import { CuentasContablesComponent } from './exclusivo/Contabilidad/CuentasContables.component';
+import { CuentasContablesComponent } from './exclusivo/Contabilidad/Catalogos/CuentasContables/cuentascontables.component';
 import { ConfirmaWidget } from './widgets/confirma/confirma.widget';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConsultaComponent } from './exclusivo/consulta/consulta.component'
-import { CuentaContablesAgregarWidget } from './widgets/cuentascontables/cuentacontableagregar.widget';
+import { CuentaContablesAgregarWidget } from './widgets/Contabilidad/Catalogos/cuentacontableagregar.widget';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ConfirmacionWidget } from './widgets/confirmacion/confirmacion.widget';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -41,7 +41,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         ExMenuComponent,
         LatMenuComponent,
         DashboardComponent,
-        CuentasContablesComponent,
 
         PaginaWidget,
         ToastWidget,
@@ -49,7 +48,9 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         ConfirmaWidget,
         ConfirmacionWidget,
         CuentaContablesAgregarWidget,
-        ConsultaComponent
+        ConsultaComponent,
+        CuentasContablesComponent
+
         
     ],
     imports: [
@@ -73,9 +74,20 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
                 path: 'exclusivo', component: ExclusivoComponent,
                 children: [
                     { path: '', component: DashboardComponent, pathMatch: 'full' },
-                    { path: 'Contabilidad', component: CuentasContablesComponent},
-                    { path: 'consulta', component: ConsultaComponent },
-                    //{ path: 'prospecto/:id', component: ProsNuevoComponent }, ejemplo ruta a componente con id
+                    {
+                        path: 'contabilidad',
+                        children: [
+                            {
+                                path: 'catalogos',
+                                children: [
+                                    {
+                                        path: 'cuentascontables', component: CuentasContablesComponent, pathMatch: 'full'
+                                    }
+                                ]
+                            }
+                        ]
+
+                    },
                 ]
             }
         ])

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using SINGA.Models;
-using SINGA.DTOs;
-using SINGA.Enums;
-
+using SINGA.DTOs.Usuario;
+using SINGA.DTOs.Miscelaneos;
+using SINGA.Models.Usuario;
+using SINGA.Models.Miscelaneos;
 namespace SINGA
 {
     public class AutoMapper : Profile

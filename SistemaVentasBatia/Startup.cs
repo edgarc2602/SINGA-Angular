@@ -16,6 +16,8 @@ using SINGA.Repositories;
 using SINGA.Converters;
 using SINGA.Middleware;
 using SINGA.Controllers;
+using SINGA.Repositories.Contabilidad.Catalogos;
+using SINGA.Services.Contabilidad.Catalogos;
 
 
 namespace SINGA

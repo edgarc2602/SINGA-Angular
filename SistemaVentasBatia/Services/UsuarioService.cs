@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using SINGA.DTOs.Usuario;
+using SINGA.Models.Usuario;
+using SINGA.Models.Miscelaneos;
 
 namespace SINGA.Services
 {

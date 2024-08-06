@@ -11,7 +11,7 @@ using Dapper;
 using Microsoft.AspNetCore.Mvc;
 using SINGA.Context;
 using SINGA.DTOs;
-using SINGA.Enums;
+using SINGA.Models.Miscelaneos;
 using SINGA.Models;
 using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
@@ -24,12 +24,12 @@ namespace SINGA.Repositories
 
     public class ConsultaRepository : IConsultaRepository
     {
-        private readonly DapperContext _ctx;
+        //private readonly DapperContext _ctx;
 
-        public ConsultaRepository(DapperContext context)
-        {
-            _ctx = context;
-        }
+        //public ConsultaRepository(DapperContext context)
+        //{
+        //    _ctx = context;
+        //}
 
 //        public async Task<int> ContarEvaluaciones(ParamDashboardDTO param)
 //        {
